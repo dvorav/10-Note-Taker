@@ -11,6 +11,7 @@
 4. [Test](#test)
 5. [License](#License)
 6. [Questions](#Questions)
+7. [Deployed](#Deployed)
 
 ## Description
 The purpose of this is for user to write down notes and have them be saved if they were to close or end the session.  
@@ -58,3 +59,7 @@ MIT
 ## Questions
 * Github: https://github.com/dvorav
 * Email: d.vorav612@gmail.com
+
+## Deployed
+Link to deployed site:
+https://safe-reef-20907.herokuapp.com/notes
