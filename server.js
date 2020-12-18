@@ -41,6 +41,7 @@ link
     let notes = request.body;
 
     let max = 99;
+    //for loops through db array to find length
     for (i = 0; i < db.length; i++) {
       let singleNote = db[i];
 
@@ -48,9 +49,10 @@ link
         max = singleNote.id;
       }
     }
+    // for every new note, assigns an new id
     notes.id = max + 1;
     db.push(notes);
-
+//writes file 
     fs.writeFile(json, JSON.stringify(db), (err) => {
       if (err) {
         return console.log(err);
@@ -58,6 +60,8 @@ link
     });
     response.json(notes);
   });
+
+  //delete function for removing note based on its ID.
 
 link.delete("/api/notes/:id",  (request, response) => {
   let json = path.join(__dirname, "/db/db.json");
@@ -68,6 +72,8 @@ link.delete("/api/notes/:id",  (request, response) => {
     }
   }
 
+  
+//writes file 
   fs.writeFileSync(json, JSON.stringify(db), (err) => {
     if (err) {
       return console.log(err);
