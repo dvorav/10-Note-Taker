@@ -15,7 +15,8 @@
 ## Description
 The purpose of this is for user to write down notes and have them be saved if they were to close or end the session.  
 ![With text](public/assets/images/image1.PNG)   
-This image shows an example of what can be written as a note.
+This image shows an example of what can be written as a note.  
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 ![Once submitted](public/assets/images/image2.PNG)
 This image shows what happens once saved. The textarea clears along with it appearing on the left-hand column.   
 
