@@ -13,7 +13,10 @@
 6. [Questions](#Questions)
 
 ## Description
-The purpose of this is for user to write down notes and have them be saved if they were to close or end the session.      
+The purpose of this is for user to write down notes and have them be saved if they were to close or end the session.  
+![With text](public/assets/images/image1.PNG)   
+![Once submitted](public/assets/images/image2.PNG)   
+
 ## Installation
 You will need to have NPM Install package, and NPM Inquirer installed.
 ## Usage
