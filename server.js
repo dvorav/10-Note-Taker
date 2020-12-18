@@ -1,41 +1,82 @@
-//Dependencies 
+//Dependencies
 
 const fs = require("fs");
-const database = require("./db/db.json");
+const db = require("./db/db.json");
 const path = require("path");
 const express = require("express");
 
 //Express linkage
-let app = express();
+let link = express();
 let PORT = process.env.PORT || 3001;
 
-//grab from notes 
-app.route("/api/notes")
-    // Grab the notes list (this should be updated for every new note and deleted note.)
-    .get(function (req, res) {
-        res.json(database);
-    })
+//Gotta link to notes
+link.use(express.static("public"));
+
+link.use(express.urlencoded({ extended: true }));
+link.use(express.json());
 
 
-app.use(express.static('public'));
+//Notes url page
+link.get("/notes", (request, response) => {
+    response.sendFile(path.join(__dirname, "/public/notes.html"));
+  });
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-
-app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "/public/index.html"));
+//Main page url
+link.get("/", (request, response) => {
+  response.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
-app.get("/notes", function (req, res) {
-    res.sendFile(path.join(__dirname, "/public/notes.html"));
-})
 
 
+link
+  .route("/api/notes")
+  //path to note list and will update as notes are added or removed.
+  .get((request, response) => {
+    response.json(db);
+  })
 
+  // will add on new info to the db.json file
+  .post((request, response) => {
+    let json = path.join(__dirname, "/db/db.json");
+    let notes = request.body;
 
+    let max = 99;
+    for (i = 0; i < db.length; i++) {
+      let singleNote = db[i];
 
-//Starts Server
-app.listen(PORT, function () {
-    console.log("App listening on PORT " + PORT);
+      if (singleNote.id > max) {
+        max = singleNote.id;
+      }
+    }
+    notes.id = max + 1;
+    db.push(notes);
+
+    fs.writeFile(json, JSON.stringify(db), (err) => {
+      if (err) {
+        return console.log(err);
+      }
+    });
+    response.json(notes);
+  });
+
+link.delete("/api/notes/:id",  (request, response) => {
+  let json = path.join(__dirname, "/db/db.json");
+  for (let i = 0; i < db.length; i++) {
+    if (db[i].id == request.params.id) {
+      db.splice(i, 1);
+      break;
+    }
+  }
+
+  fs.writeFileSync(json, JSON.stringify(db), (err) => {
+    if (err) {
+      return console.log(err);
+    }
+  });
+  response.json(db);
+});
+
+//Startup server when called.
+link.listen(PORT, () => {
+  console.log("The server " + PORT + " has been intialized!");
 });
