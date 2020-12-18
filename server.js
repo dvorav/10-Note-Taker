@@ -15,18 +15,15 @@ link.use(express.static("public"));
 link.use(express.urlencoded({ extended: true }));
 link.use(express.json());
 
-
 //Notes url page
 link.get("/notes", (request, response) => {
-    response.sendFile(path.join(__dirname, "/public/notes.html"));
-  });
+  response.sendFile(path.join(__dirname, "/public/notes.html"));
+});
 
 //Main page url
 link.get("/", (request, response) => {
   response.sendFile(path.join(__dirname, "/public/index.html"));
 });
-
-
 
 link
   .route("/api/notes")
@@ -52,7 +49,7 @@ link
     // for every new note, assigns an new id
     notes.id = max + 1;
     db.push(notes);
-//writes file 
+    //writes file
     fs.writeFile(json, JSON.stringify(db), (err) => {
       if (err) {
         return console.log(err);
@@ -61,9 +58,9 @@ link
     response.json(notes);
   });
 
-  //delete function for removing note based on its ID.
+//delete function for removing note based on its ID.
 
-link.delete("/api/notes/:id",  (request, response) => {
+link.delete("/api/notes/:id", (request, response) => {
   let json = path.join(__dirname, "/db/db.json");
   for (let i = 0; i < db.length; i++) {
     if (db[i].id == request.params.id) {
@@ -72,8 +69,7 @@ link.delete("/api/notes/:id",  (request, response) => {
     }
   }
 
-  
-//writes file 
+  //writes file
   fs.writeFileSync(json, JSON.stringify(db), (err) => {
     if (err) {
       return console.log(err);
@@ -86,3 +82,4 @@ link.delete("/api/notes/:id",  (request, response) => {
 link.listen(PORT, () => {
   console.log("The server " + PORT + " has been intialized!");
 });
+//Hey//Hey//Hey//Hey//Hey//Hey//Hey//Hey//Hey//Hey//Hey//Hey//Hey//Hey//Hey//Hey//Hey//Hey//Hey//Hey//Hey
